@@ -33,6 +33,16 @@ final class ClassLoader
         'EmailNotificationService' => 'Application/Services/EmailNotificationService.php',
         'EmailSenderService' => 'Infrastructure/Adapters/Email/EmailSenderService.php',
 
+                'InvalidEquipoFutbolIdException' => 'Domain/Exceptions/InvalidEquipoFutbolIdException.php',
+                'InvalidEquipoFutbolNombreException' => 'Domain/Exceptions/InvalidEquipoFutbolNombreException.php',
+                'InvalidEquipoFutbolDatoException' => 'Domain/Exceptions/InvalidEquipoFutbolDatoException.php',
+                'InvalidEquipoFutbolEstadisticaException' => 'Domain/Exceptions/InvalidEquipoFutbolEstadisticaException.php',
+                'EquipoFutbolNotFoundException' => 'Domain/Exceptions/EquipoFutbolNotFoundException.php',
+                'EquipoFutbolAlreadyExistsException' => 'Domain/Exceptions/EquipoFutbolAlreadyExistsException.php',
+                'EquipoFutbolId' => 'Domain/ValueObjects/EquipoFutbolId.php',
+                'EquipoFutbolNombre' => 'Domain/ValueObjects/EquipoFutbolNombre.php',
+                'EquipoFutbolModel' => 'Domain/Models/EquipoFutbolModel.php',
+
         'CreateUserUseCase' => 'Application/Ports/In/CreateUserUseCase.php',
         'UpdateUserUseCase' => 'Application/Ports/In/UpdateUserUseCase.php',
         'GetUserByIdUseCase' => 'Application/Ports/In/GetUserByIdUseCase.php',
