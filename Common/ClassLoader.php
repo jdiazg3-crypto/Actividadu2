@@ -70,6 +70,20 @@ final class ClassLoader
         'GetUserByIdQuery' => 'Application/Services/Dto/Queries/GetUserByIdQuery.php',
         'GetAllUsersQuery' => 'Application/Services/Dto/Queries/GetAllUsersQuery.php',
 
+                'CreateEquipoFutbolCommand' => 'Application/Services/Dto/Commands/CreateEquipoFutbolCommand.php',
+                'UpdateEquipoFutbolCommand' => 'Application/Services/Dto/Commands/UpdateEquipoFutbolCommand.php',
+                'DeleteEquipoFutbolCommand' => 'Application/Services/Dto/Commands/DeleteEquipoFutbolCommand.php',
+                'GetEquipoFutbolByIdQuery' => 'Application/Services/Dto/Queries/GetEquipoFutbolByIdQuery.php',
+                'GetAllEquiposFutbolQuery' => 'Application/Services/Dto/Queries/GetAllEquiposFutbolQuery.php',
+
+                'CreateEquipoFutbolUseCase' => 'Application/Ports/In/CreateEquipoFutbolUseCase.php',
+                'UpdateEquipoFutbolUseCase' => 'Application/Ports/In/UpdateEquipoFutbolUseCase.php',
+                'GetEquipoFutbolByIdUseCase' => 'Application/Ports/In/GetEquipoFutbolByIdUseCase.php',
+                'GetAllEquiposFutbolUseCase' => 'Application/Ports/In/GetAllEquiposFutbolUseCase.php',
+                'DeleteEquipoFutbolUseCase' => 'Application/Ports/In/DeleteEquipoFutbolUseCase.php',
+
+                'EquipoFutbolApplicationMapper' => 'Application/Services/Mappers/EquipoFutbolApplicationMapper.php',
+
         'CreateUserService' => 'Application/Services/CreateUserService.php',
         'UpdateUserService' => 'Application/Services/UpdateUserService.php',
         'GetUserByIdService' => 'Application/Services/GetUserByIdService.php',
@@ -96,6 +110,7 @@ final class ClassLoader
         'Flash' => 'Infrastructure/Entrypoints/Web/Presentation/Flash.php',
 
         'DependencyInjection' => 'Common/DependencyInjection.php',
+
     );
 
     public static function register(): void
