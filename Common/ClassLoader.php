@@ -56,6 +56,12 @@ final class ClassLoader
         'GetUserByEmailPort' => 'Application/Ports/Out/GetUserByEmailPort.php',
         'GetAllUsersPort' => 'Application/Ports/Out/GetAllUsersPort.php',
         'DeleteUserPort' => 'Application/Ports/Out/DeleteUserPort.php',
+                'SaveEquipoFutbolPort' => 'Application/Ports/Out/SaveEquipoFutbolPort.php',
+                'GetEquipoFutbolByIdPort' => 'Application/Ports/Out/GetEquipoFutbolByIdPort.php',
+                'GetEquipoFutbolByNombrePort' => 'Application/Ports/Out/GetEquipoFutbolByNombrePort.php',
+                'GetAllEquiposFutbolPort' => 'Application/Ports/Out/GetAllEquiposFutbolPort.php',
+                'UpdateEquipoFutbolPort' => 'Application/Ports/Out/UpdateEquipoFutbolPort.php',
+                'DeleteEquipoFutbolPort' => 'Application/Ports/Out/DeleteEquipoFutbolPort.php',
 
         'CreateUserCommand' => 'Application/Services/Dto/Commands/CreateUserCommand.php',
         'UpdateUserCommand' => 'Application/Services/Dto/Commands/UpdateUserCommand.php',
