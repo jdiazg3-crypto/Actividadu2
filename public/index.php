@@ -643,7 +643,9 @@ function validateUpdateUserForm(array $form): array
         $errors['status'] = 'El estado es obligatorio.';
     }
 
-    return $errors;
+        return $errors;
+    }
+
     function equipoFields(): array
     {
         return array(
@@ -810,4 +812,4 @@ function validateUpdateUserForm(array $form): array
         );
         exit;
     }
-}
+
