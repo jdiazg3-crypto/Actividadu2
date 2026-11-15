@@ -117,6 +117,12 @@ final class ClassLoader
         'UserController' => 'Infrastructure/Entrypoints/Web/Controllers/UserController.php',
         'WebRoutes' => 'Infrastructure/Entrypoints/Web/Controllers/Config/WebRoutes.php',
 
+                'CreateEquipoFutbolWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/CreateEquipoFutbolRequest.php',
+                'UpdateEquipoFutbolWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/UpdateEquipoFutbolRequest.php',
+                'EquipoFutbolResponse' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/EquipoFutbolResponse.php',
+                'EquipoFutbolWebMapper' => 'Infrastructure/Entrypoints/Web/Controllers/Mapper/EquipoFutbolWebMapper.php',
+                'EquipoFutbolController' => 'Infrastructure/Entrypoints/Web/Controllers/EquipoFutbolController.php',
+
         'View' => 'Infrastructure/Entrypoints/Web/Presentation/View.php',
         'Flash' => 'Infrastructure/Entrypoints/Web/Presentation/Flash.php',
 

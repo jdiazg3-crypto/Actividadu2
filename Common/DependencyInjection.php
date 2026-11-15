@@ -195,6 +195,26 @@ final class DependencyInjection
             $repository
         );
     }
+    public static function getEquipoFutbolWebMapper(): EquipoFutbolWebMapper
+    {
+        ClassLoader::loadClass('EquipoFutbolWebMapper');
+
+        return new EquipoFutbolWebMapper();
+    }
+
+    public static function getEquipoFutbolController(): EquipoFutbolController
+    {
+        ClassLoader::loadClass('EquipoFutbolController');
+
+        return new EquipoFutbolController(
+            self::getCreateEquipoFutbolUseCase(),
+            self::getUpdateEquipoFutbolUseCase(),
+            self::getGetEquipoFutbolByIdUseCase(),
+            self::getGetAllEquiposFutbolUseCase(),
+            self::getDeleteEquipoFutbolUseCase(),
+            self::getEquipoFutbolWebMapper()
+        );
+    }
 
     public static function getUserWebMapper(): UserWebMapper
     {
