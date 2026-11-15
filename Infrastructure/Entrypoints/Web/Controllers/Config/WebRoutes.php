@@ -62,6 +62,42 @@ final class WebRoutes
                 'method' => 'POST',
                 'action' => 'forgot.send',
             ),
+                        'equipos.index' => array(
+                            'method' => 'GET',
+                            'action' => 'equipos.index',
+                        ),
+                        'equipos.create' => array(
+                            'method' => 'GET',
+                            'action' => 'equipos.create',
+                        ),
+                        'equipos.store' => array(
+                            'method' => 'POST',
+                            'action' => 'equipos.store',
+                        ),
+                        'equipos.show' => array(
+                            'method' => 'GET',
+                            'action' => 'equipos.show',
+                        ),
+                        'equipos.edit' => array(
+                            'method' => 'GET',
+                            'action' => 'equipos.edit',
+                        ),
+                        'equipos.update' => array(
+                            'method' => 'POST',
+                            'action' => 'equipos.update',
+                        ),
+                        'equipos.confirmDelete' => array(
+                            'method' => 'GET',
+                            'action' => 'equipos.confirmDelete',
+                        ),
+                        'equipos.delete' => array(
+                            'method' => 'POST',
+                            'action' => 'equipos.delete',
+                        ),
+                        'equipos.search' => array(
+                            'method' => 'GET',
+                            'action' => 'equipos.search',
+                        ),
         );
     }
 }

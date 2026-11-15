@@ -182,6 +182,112 @@ try {
             View::redirect('users.index');
             break;
 
+                    case 'equipos.index':
+                    case 'equipos.search':
+                        $search = trim(
+                            is_string($_GET['search'] ?? null) ? $_GET['search'] : ''
+                        );
+
+                        $equipos = DependencyInjection::getEquipoFutbolController()
+                            ->index($search);
+
+                        View::render(
+                            $route === 'equipos.search'
+                                ? 'equipos/buscar'
+                                : 'equipos/listar',
+                            buildEquipoViewData(
+                                'Equipos de fútbol',
+                                array('equipos' => $equipos, 'search' => $search)
+                            )
+                        );
+                        break;
+
+                    case 'equipos.create':
+                        View::render(
+                            'equipos/agregar',
+                            buildEquipoViewData('Agregar equipo')
+                        );
+                        break;
+
+                    case 'equipos.show':
+                    case 'equipos.edit':
+                    case 'equipos.confirmDelete':
+                        $id = is_string($_GET['id'] ?? null)
+                            ? trim($_GET['id'])
+                            : '';
+
+                        $equipo = DependencyInjection::getEquipoFutbolController()
+                            ->show($id);
+
+                        $templates = array(
+                            'equipos.show' => 'detalle',
+                            'equipos.edit' => 'editar',
+                            'equipos.confirmDelete' => 'eliminar',
+                        );
+
+                        View::render(
+                            'equipos/' . $templates[$route],
+                            buildEquipoViewData(
+                                'Equipo: ' . $equipo->getNombre(),
+                                array('equipo' => $equipo)
+                            )
+                        );
+                        break;
+
+                    case 'equipos.store':
+                    case 'equipos.update':
+                        validateEquipoCsrf();
+
+                        $form = getEquipoFormData();
+                        $errors = validateEquipoForm($form);
+
+                        if (!empty($errors)) {
+                            Flash::setOld($form);
+                            Flash::setErrors($errors);
+                            Flash::setMessage('Corrige los errores del formulario.');
+
+                            redirectEquipoForm(
+                                $route === 'equipos.update',
+                                $form['id']
+                            );
+                        }
+
+                        $controller = DependencyInjection::getEquipoFutbolController();
+
+                        if ($route === 'equipos.store') {
+                            $form['id'] = generateUuid4();
+
+                            $controller->store(
+                                new CreateEquipoFutbolWebRequest(...array_values($form))
+                            );
+                        } else {
+                            $controller->update(
+                                new UpdateEquipoFutbolWebRequest(...array_values($form))
+                            );
+                        }
+
+                        Flash::setSuccess(
+                            $route === 'equipos.store'
+                                ? 'Equipo registrado correctamente.'
+                                : 'Equipo actualizado correctamente.'
+                        );
+
+                        View::redirect('equipos.index');
+                        break;
+
+                    case 'equipos.delete':
+                        validateEquipoCsrf();
+
+                        $id = is_string($_POST['id'] ?? null)
+                            ? trim($_POST['id'])
+                            : '';
+
+                        DependencyInjection::getEquipoFutbolController()->delete($id);
+
+                        Flash::setSuccess('Equipo eliminado correctamente.');
+                        View::redirect('equipos.index');
+                        break;
+
         case 'login':
             if (isLoggedIn()) {
                 View::redirect('home');
@@ -285,6 +391,39 @@ try {
     Flash::setMessage($msg);
 
     switch ($route) {
+
+            case 'equipos.store':
+            case 'equipos.update':
+                Flash::setOld(getEquipoFormData());
+
+                redirectEquipoForm(
+                    $route === 'equipos.update',
+                    getEquipoFormData()['id']
+                );
+                break;
+
+            case 'equipos.index':
+            case 'equipos.search':
+                http_response_code(500);
+
+                View::render(
+                    'equipos/listar',
+                    buildEquipoViewData(
+                        'Equipos de fútbol',
+                        array(
+                            'equipos' => array(),
+                            'loadFailed' => true,
+                        )
+                    )
+                );
+                break;
+
+            case 'equipos.show':
+            case 'equipos.edit':
+            case 'equipos.confirmDelete':
+            case 'equipos.delete':
+                View::redirect('equipos.index');
+                break;
         case 'users.store':
             Flash::setOld(getCreateUserFormData());
             View::redirect('users.create');
@@ -505,4 +644,170 @@ function validateUpdateUserForm(array $form): array
     }
 
     return $errors;
+    function equipoFields(): array
+    {
+        return array(
+            'nombre' => array(
+                'label' => 'Nombre',
+                'type' => 'text',
+                'max' => 100,
+                'required' => true,
+            ),
+            'eslogan' => array(
+                'label' => 'Eslogan',
+                'type' => 'text',
+                'max' => 150,
+                'required' => false,
+            ),
+            'tecnico' => array(
+                'label' => 'Técnico',
+                'type' => 'text',
+                'max' => 100,
+                'required' => true,
+            ),
+            'pais' => array(
+                'label' => 'País',
+                'type' => 'text',
+                'max' => 60,
+                'required' => true,
+            ),
+            'ciudad' => array(
+                'label' => 'Ciudad',
+                'type' => 'text',
+                'max' => 60,
+                'required' => true,
+            ),
+            'categoria' => array(
+                'label' => 'Categoría',
+                'type' => 'text',
+                'max' => 50,
+                'required' => true,
+            ),
+            'numGoles' => array(
+                'label' => 'Goles',
+                'type' => 'number',
+            ),
+            'numPartidosJugados' => array(
+                'label' => 'Partidos jugados',
+                'type' => 'number',
+            ),
+            'numPartidosGanados' => array(
+                'label' => 'Partidos ganados',
+                'type' => 'number',
+            ),
+            'numEmpates' => array(
+                'label' => 'Empates',
+                'type' => 'number',
+            ),
+            'numCampeonatos' => array(
+                'label' => 'Campeonatos',
+                'type' => 'number',
+            ),
+            'numExpulsiones' => array(
+                'label' => 'Expulsiones',
+                'type' => 'number',
+            ),
+        );
+    }
+
+    function getEquipoFormData(): array
+    {
+        $form = array(
+            'id' => is_string($_POST['id'] ?? null)
+                ? trim($_POST['id'])
+                : '',
+        );
+
+        foreach (equipoFields() as $key => $definition) {
+            $form[$key] = is_string($_POST[$key] ?? null)
+                ? trim($_POST[$key])
+                : '';
+        }
+
+        return $form;
+    }
+
+    function validateEquipoForm(array $form): array
+    {
+        $errors = array();
+
+        foreach (equipoFields() as $key => $definition) {
+            $value = $form[$key];
+
+            if ($definition['type'] === 'number') {
+                $number = filter_var($value, FILTER_VALIDATE_INT);
+
+                if ($number === false || $number < 0 || $number > 2147483647) {
+                    $errors[$key] = 'Introduce un entero entre 0 y 2147483647.';
+                }
+            } elseif ($definition['required'] && $value === '') {
+                $errors[$key] = 'Este campo es obligatorio.';
+            } elseif (mb_strlen($value) > $definition['max']) {
+                $errors[$key] = 'Máximo ' . $definition['max'] . ' caracteres.';
+            }
+        }
+
+        if (!isset($errors['nombre']) && mb_strlen($form['nombre']) < 2) {
+            $errors['nombre'] = 'El nombre debe tener al menos 2 caracteres.';
+        }
+
+        if (
+            !isset($errors['numPartidosJugados'])
+            && !isset($errors['numPartidosGanados'])
+            && !isset($errors['numEmpates'])
+            && (int) $form['numPartidosGanados'] + (int) $form['numEmpates']
+                > (int) $form['numPartidosJugados']
+        ) {
+            $errors['numPartidosJugados'] =
+                'Los ganados más los empates no pueden superar los partidos jugados.';
+        }
+
+        return $errors;
+    }
+
+    function buildEquipoViewData(string $title, array $extra = array()): array
+    {
+        if (!isset($_SESSION['equipos_csrf'])) {
+            $_SESSION['equipos_csrf'] = bin2hex(random_bytes(32));
+        }
+
+        return array_merge(
+            array(
+                'pageTitle' => $title,
+                'message' => Flash::message(),
+                'success' => Flash::success(),
+                'errors' => Flash::errors(),
+                'old' => Flash::old(),
+                'fields' => equipoFields(),
+                'csrf' => $_SESSION['equipos_csrf'],
+            ),
+            $extra
+        );
+    }
+
+    function validateEquipoCsrf(): void
+    {
+        $token = $_POST['csrf'] ?? null;
+
+        if (
+            !is_string($token)
+            || !isset($_SESSION['equipos_csrf'])
+            || !hash_equals($_SESSION['equipos_csrf'], $token)
+        ) {
+            throw new RuntimeException(
+                'El formulario expiró. Vuelve a intentarlo.'
+            );
+        }
+    }
+
+    function redirectEquipoForm(bool $editing, string $id): void
+    {
+        header(
+            'Location: ?route='
+            . ($editing
+                ? 'equipos.edit&id=' . urlencode($id)
+                : 'equipos.create')
+        );
+        exit;
+    }
 }
