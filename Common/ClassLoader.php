@@ -92,6 +92,12 @@ final class ClassLoader
         'LoginService' => 'Application/Services/LoginService.php',
         'UserApplicationMapper' => 'Application/Services/Mappers/UserApplicationMapper.php',
 
+                'CreateEquipoFutbolService' => 'Application/Services/CreateEquipoFutbolService.php',
+                'UpdateEquipoFutbolService' => 'Application/Services/UpdateEquipoFutbolService.php',
+                'GetEquipoFutbolByIdService' => 'Application/Services/GetEquipoFutbolByIdService.php',
+                'GetAllEquiposFutbolService' => 'Application/Services/GetAllEquiposFutbolService.php',
+                'DeleteEquipoFutbolService' => 'Application/Services/DeleteEquipoFutbolService.php',
+
         'Connection' => 'Infrastructure/Adapters/Persistence/MySQL/Config/Connection.php',
         'UserPersistenceDto' => 'Infrastructure/Adapters/Persistence/MySQL/Dto/UserPersistenceDto.php',
         'UserEntity' => 'Infrastructure/Adapters/Persistence/MySQL/Entity/UserEntity.php',
