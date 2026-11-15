@@ -37,17 +37,30 @@ final class Connection
             $this->charset
         );
 
-        $pdo = new PDO(
+        $options = array(
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+            PDO::ATTR_EMULATE_PREPARES => false,
+        );
+
+        $sslCa = trim((string) (getenv('DB_SSL_CA') ?: ''));
+
+        if ($sslCa !== '') {
+            if (!is_readable($sslCa)) {
+                throw new RuntimeException(
+                    'No se encuentra el certificado para conectar a la base de datos.'
+                );
+            }
+
+            $options[PDO::MYSQL_ATTR_SSL_CA] = $sslCa;
+            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = true;
+        }
+
+        return new PDO(
             $dsn,
             $this->username,
             $this->password,
-            array(
-                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::ATTR_EMULATE_PREPARES => false,
-            )
+            $options
         );
-
-        return $pdo;
     }
 }
