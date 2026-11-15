@@ -104,6 +104,11 @@ final class ClassLoader
         'UserPersistenceMapper' => 'Infrastructure/Adapters/Persistence/MySQL/Mapper/UserPersistenceMapper.php',
         'UserRepositoryMySQL' => 'Infrastructure/Adapters/Persistence/MySQL/Repository/UserRepositoryMySQL.php',
 
+                'EquipoFutbolPersistenceDto' => 'Infrastructure/Adapters/Persistence/MySQL/Dto/EquipoFutbolPersistenceDto.php',
+                'EquipoFutbolEntity' => 'Infrastructure/Adapters/Persistence/MySQL/Entity/EquipoFutbolEntity.php',
+                'EquipoFutbolPersistenceMapper' => 'Infrastructure/Adapters/Persistence/MySQL/Mapper/EquipoFutbolPersistenceMapper.php',
+                'EquipoFutbolRepositoryMySQL' => 'Infrastructure/Adapters/Persistence/MySQL/Repository/EquipoFutbolRepositoryMySQL.php',
+
         'CreateUserWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/CreateUserRequest.php',
         'UpdateUserWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/UpdateUserRequest.php',
         'LoginWebRequest' => 'Infrastructure/Entrypoints/Web/Controllers/Dto/LoginWebRequest.php',

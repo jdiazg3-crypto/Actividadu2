@@ -127,6 +127,75 @@ final class DependencyInjection
         );
     }
 
+    public static function getEquipoFutbolPersistenceMapper(): EquipoFutbolPersistenceMapper
+    {
+        ClassLoader::loadClass('EquipoFutbolPersistenceMapper');
+
+        return new EquipoFutbolPersistenceMapper();
+    }
+
+    public static function getEquipoFutbolRepository(): EquipoFutbolRepositoryMySQL
+    {
+        ClassLoader::loadClass('EquipoFutbolRepositoryMySQL');
+
+        return new EquipoFutbolRepositoryMySQL(
+            self::getPdo(),
+            self::getEquipoFutbolPersistenceMapper()
+        );
+    }
+
+    public static function getCreateEquipoFutbolUseCase(): CreateEquipoFutbolUseCase
+    {
+        ClassLoader::loadClass('CreateEquipoFutbolService');
+        $repository = self::getEquipoFutbolRepository();
+
+        return new CreateEquipoFutbolService(
+            $repository,
+            $repository
+        );
+    }
+
+    public static function getUpdateEquipoFutbolUseCase(): UpdateEquipoFutbolUseCase
+    {
+        ClassLoader::loadClass('UpdateEquipoFutbolService');
+        $repository = self::getEquipoFutbolRepository();
+
+        return new UpdateEquipoFutbolService(
+            $repository,
+            $repository,
+            $repository
+        );
+    }
+
+    public static function getGetEquipoFutbolByIdUseCase(): GetEquipoFutbolByIdUseCase
+    {
+        ClassLoader::loadClass('GetEquipoFutbolByIdService');
+
+        return new GetEquipoFutbolByIdService(
+            self::getEquipoFutbolRepository()
+        );
+    }
+
+    public static function getGetAllEquiposFutbolUseCase(): GetAllEquiposFutbolUseCase
+    {
+        ClassLoader::loadClass('GetAllEquiposFutbolService');
+
+        return new GetAllEquiposFutbolService(
+            self::getEquipoFutbolRepository()
+        );
+    }
+
+    public static function getDeleteEquipoFutbolUseCase(): DeleteEquipoFutbolUseCase
+    {
+        ClassLoader::loadClass('DeleteEquipoFutbolService');
+        $repository = self::getEquipoFutbolRepository();
+
+        return new DeleteEquipoFutbolService(
+            $repository,
+            $repository
+        );
+    }
+
     public static function getUserWebMapper(): UserWebMapper
     {
         ClassLoader::loadClass('UserWebMapper');
